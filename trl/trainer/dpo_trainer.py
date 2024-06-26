@@ -570,11 +570,11 @@ class DPOTrainer(Trainer):
             rejected_tokens1["attention_mask"].append(1)
             rejected_tokens2["attention_mask"].append(1)
                 
-            longer_response_length = max(len(chosen_tokens["input_ids"]), len(rejected_tokens1["input_ids"]), len(rejected_tokens2["input_ids"]), len(rejected_tokens3["input_ids"]))
+            longer_response_length = max(len(chosen_tokens["input_ids"]), len(rejected_tokens1["input_ids"]), len(rejected_tokens2["input_ids"]))
     
     
             # if combined sequence is too long, truncate the prompt
-            for answer_tokens in [chosen_tokens, rejected_tokens1, rejected_tokens2, rejected_tokens3, prompt_tokens]:
+            for answer_tokens in [chosen_tokens, rejected_tokens1, rejected_tokens2, prompt_tokens]:
                 if len(answer_tokens["prompt_input_ids"]) + longer_response_length > self.max_length:
                     if self.truncation_mode == "keep_start":
                         for k in ["prompt_input_ids", "prompt_attention_mask"]:
